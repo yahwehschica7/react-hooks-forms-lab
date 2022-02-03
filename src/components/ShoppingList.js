@@ -9,11 +9,8 @@ function ShoppingList({ items }) {
   const [newSearch, setNewSearch] = useState("")
 
   function onSearchChange(event) {
-    if (setNewSearch === event.target.value) {
-      return items.name
-    } else {
-      return newSearch
-    }
+  // console.log(event.target.value)
+    setNewSearch(event.target.value)
   }
 
   function handleCategoryChange(event) {
@@ -21,11 +18,17 @@ function ShoppingList({ items }) {
   }
 
   const itemsToDisplay = items.filter((item) => {
-    if (selectedCategory === "All") return true;
-
-    return item.category === selectedCategory;
-  });
-
+    if (selectedCategory === "All") return true
+       return item.category === selectedCategory
+    }).filter(item => {
+      if(newSearch === ""){
+        return true
+      } else {
+        return item.name === newSearch
+      }
+    });
+  
+  
   return (
     <div className="ShoppingList">
       <ItemForm />
